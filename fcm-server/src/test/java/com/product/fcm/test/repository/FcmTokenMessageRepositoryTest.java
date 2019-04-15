@@ -35,7 +35,7 @@ public class FcmTokenMessageRepositoryTest {
     @Test
     public void find_all_by_token_with_success() {
 
-        List<FcmTokenMessage> list = fcmTokenMessageRepository.findAllByToken("123");
+        List<FcmTokenMessage> list = fcmTokenMessageRepository.findAllByOrganizationIdAndToken("123", "123");
 
         Assert.assertEquals(2, list.size());
 

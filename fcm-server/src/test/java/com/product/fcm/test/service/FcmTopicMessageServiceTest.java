@@ -39,9 +39,9 @@ public class FcmTopicMessageServiceTest {
 
         FcmTopicMessage data = createBasicFcmTopicMessage("1", "123");
 
-        given(repository.findById("1")).willReturn(Optional.of(data));
+        given(repository.findByOrganizationIdAndId("123","1")).willReturn(data);
 
-        FcmTopicMessage ret = service.findById("1");
+        FcmTopicMessage ret = service.findByOrganizationIdAndId("123","1");
 
         Assert.assertEquals(data.getId(), ret.getId());
         Assert.assertEquals(data.getTopic(), ret.getTopic());
@@ -55,9 +55,9 @@ public class FcmTopicMessageServiceTest {
     public void find_by_id_not_found() {
 
 
-        given(repository.findById("2")).willReturn(Optional.empty());
+        given(repository.findByOrganizationIdAndId("123","2")).willReturn(null);
 
-        FcmTopicMessage ret = service.findById("2");
+        FcmTopicMessage ret = service.findByOrganizationIdAndId("123","2");
 
         Assert.assertTrue(ret == null);
 
@@ -69,9 +69,10 @@ public class FcmTopicMessageServiceTest {
 
         FcmTopicMessage data = createBasicFcmTopicMessage("1", "123");
 
-        given(repository.findAllByTopic("123")).willReturn(Arrays.asList(data));
+        given(repository.findAllByOrganizationIdAndTopic("123","123"))
+                .willReturn(Arrays.asList(data));
 
-        List<FcmTopicMessage> ret = service.findAllByTopic("123");
+        List<FcmTopicMessage> ret = service.findAllByOrganizationIdAndTopic("123","123");
 
         Assert.assertEquals(1, ret.size());
 
@@ -87,9 +88,9 @@ public class FcmTopicMessageServiceTest {
     public void find_all_by_topic_not_found() {
 
 
-        given(repository.findAllByTopic("2")).willReturn(Arrays.asList());
+        given(repository.findAllByOrganizationIdAndTopic("123","2")).willReturn(Arrays.asList());
 
-        List<FcmTopicMessage> ret = service.findAllByTopic("2");
+        List<FcmTopicMessage> ret = service.findAllByOrganizationIdAndTopic("123","2");
 
         Assert.assertTrue(ret.isEmpty());
 

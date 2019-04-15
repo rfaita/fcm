@@ -125,7 +125,10 @@ public class FcmController implements FcmContract {
         return
                 Envelope
                         .<FcmTopicMessageDTO>builder()
-                        .data(conversionService.convert(fcmTopicMessageService.findById(id), FcmTopicMessageDTO.class))
+                        .data(conversionService.convert(
+                                fcmTopicMessageService.findByOrganizationIdAndId(organizationId, id)
+                                , FcmTopicMessageDTO.class)
+                        )
                         .build();
 
     }
@@ -140,7 +143,10 @@ public class FcmController implements FcmContract {
         return
                 Envelope
                         .<FcmTokenMessageDTO>builder()
-                        .data(conversionService.convert(fcmTokenMessageService.findById(id), FcmTokenMessageDTO.class))
+                        .data(conversionService.convert(
+                                fcmTokenMessageService.findByOrganizationIdAndId(organizationId, id)
+                                , FcmTokenMessageDTO.class)
+                        )
                         .build();
     }
 
@@ -153,7 +159,7 @@ public class FcmController implements FcmContract {
 
         List<FcmTokenMessageDTO> ret = (List<FcmTokenMessageDTO>)
                 conversionService.convert(
-                        fcmTokenMessageService.findAllByToken(token),
+                        fcmTokenMessageService.findAllByOrganizationIdAndToken(organizationId, token),
                         TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FcmTokenMessage.class)),
                         TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FcmTokenMessageDTO.class))
                 );
@@ -174,7 +180,7 @@ public class FcmController implements FcmContract {
 
         List<FcmTopicMessageDTO> ret = (List<FcmTopicMessageDTO>)
                 conversionService.convert(
-                        fcmTopicMessageService.findAllByTopic(topic),
+                        fcmTopicMessageService.findAllByOrganizationIdAndTopic(organizationId, topic),
                         TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FcmTopicMessage.class)),
                         TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FcmTopicMessageDTO.class))
                 );

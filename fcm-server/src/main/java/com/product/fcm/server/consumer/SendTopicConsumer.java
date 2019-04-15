@@ -4,7 +4,6 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.product.fcm.server.model.FcmTopicMessage;
 import com.product.fcm.server.service.FcmService;
 import com.product.fcm.server.service.FcmTopicMessageService;
-import com.product.fcm.util.TenantContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
@@ -26,12 +25,10 @@ public class SendTopicConsumer {
         this.service = service;
     }
 
-    @RabbitListener(queues = "${fcm.send.topic.sendQueue}", 
+    @RabbitListener(queues = "${fcm.send.topic.sendQueue}",
             containerFactory = "customRabbitListenerContainerFactory")
     public void send(final FcmTopicMessage fcmTopicMessage) {
         try {
-
-            TenantContext.setTenantId(fcmTopicMessage.getOrganizationId());
 
             try {
                 log.info("Realizando envio da MSG, para o topic '{}'.", fcmTopicMessage.getTopic());
@@ -53,8 +50,6 @@ public class SendTopicConsumer {
         } catch (Exception e) {
             log.error("Erro envio da MSG, para o topic '{}'.", fcmTopicMessage.getTopic(), e);
             throw new AmqpRejectAndDontRequeueException(e);
-        } finally {
-            TenantContext.clear();
         }
     }
 

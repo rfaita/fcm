@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "tokenMessage_#{T(com.product.fcm.util.TenantContext).getTenantId()}")
+@Document(collection = "tokenMessage")
 public class FcmTokenMessage extends FcmMessage {
 
     @NotEmpty(message = "{message.token.notEmpty}")

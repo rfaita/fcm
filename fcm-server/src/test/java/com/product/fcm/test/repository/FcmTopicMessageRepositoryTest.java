@@ -35,7 +35,7 @@ public class FcmTopicMessageRepositoryTest {
     @Test
     public void find_all_by_token_with_success() {
 
-        List<FcmTopicMessage> list = fcmTopicMessageRepository.findAllByTopic("123");
+        List<FcmTopicMessage> list = fcmTopicMessageRepository.findAllByOrganizationIdAndTopic("123", "123");
 
         Assert.assertEquals(2, list.size());
 

@@ -4,7 +4,6 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.product.fcm.server.model.FcmTokenMessage;
 import com.product.fcm.server.service.FcmService;
 import com.product.fcm.server.service.FcmTokenMessageService;
-import com.product.fcm.util.TenantContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
@@ -33,8 +32,6 @@ public class SendTokenConsumer {
     public void send(final FcmTokenMessage fcmTokenMessage) {
         try {
 
-            TenantContext.setTenantId(fcmTokenMessage.getOrganizationId());
-
             try {
 
 
@@ -57,8 +54,6 @@ public class SendTokenConsumer {
         } catch (Exception e) {
             log.error("Erro envio da MSG, para o token '{}'.", fcmTokenMessage.getToken(), e);
             throw new AmqpRejectAndDontRequeueException(e);
-        } finally {
-            TenantContext.clear();
         }
     }
 

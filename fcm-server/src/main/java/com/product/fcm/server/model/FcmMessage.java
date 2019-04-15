@@ -32,6 +32,7 @@ public abstract class FcmMessage implements Serializable {
     protected Date publishedAt;
 
     @NotEmpty(message = "{message.organizationId.notEmpty}")
+    @Indexed
     protected String organizationId;
 
     protected String errorCode;

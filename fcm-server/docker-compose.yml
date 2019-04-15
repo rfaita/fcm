@@ -1,0 +1,32 @@
+version: "3.4"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      - fcm
+
+  mongodb:
+    image: mongo
+    networks:
+      - fcm
+
+  app:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile
+      args:
+        JAR_FILE: target/app.jar
+        UTIL_DIR: src/main/docker/
+    volumes:
+      - $HOME/serviceAccountKey.json:/root/serviceAccountKey.json
+    ports:
+      - "8080:8080"
+    environment:
+      - WAIT_FOR_IT=mongodb:27017 rabbitmq:5672
+      - JAVA_OPTS=-Xmx256m -Xms128m -Dspring.profiles.active=docker-compose
+    networks:
+      - fcm
+
+networks:
+  fcm:
+

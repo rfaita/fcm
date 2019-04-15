@@ -2,7 +2,6 @@ package com.product.fcm.test.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.product.fcm.server.controller.FcmController;
-import com.product.fcm.server.interceptor.TenantOrganizationInteceptor;
 import com.product.fcm.server.model.FcmTokenMessage;
 import com.product.fcm.server.model.FcmTopicMessage;
 import com.product.fcm.server.producer.FcmProducer;
@@ -15,13 +14,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 
 import static com.product.fcm.test.helper.FcmTokenMessageBuilder.createBasicFcmTokenMessage;
@@ -41,16 +38,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(secure = false, controllers = FcmController.class)
 public class FcmControllerTest {
-
-    @TestConfiguration
-    static class FcmControllerTestContextConfiguration {
-
-        @Bean
-        public TenantOrganizationInteceptor tenantOrganizationInteceptor() {
-            return new TenantOrganizationInteceptor();
-        }
-
-    }
 
     @Autowired
     private MockMvc mvc;
@@ -143,7 +130,7 @@ public class FcmControllerTest {
 
         FcmTopicMessage input = createBasicFcmTopicMessage("1", "123");
 
-        given(fcmTopicMessageService.findById("1")).willReturn(input);
+        given(fcmTopicMessageService.findByOrganizationIdAndId("teste1","1")).willReturn(input);
 
         mvc.perform(
                 get("/fcm/teste1/topic/1")
@@ -160,7 +147,7 @@ public class FcmControllerTest {
 
         FcmTokenMessage input = createBasicFcmTokenMessage("1", "123");
 
-        given(fcmTokenMessageService.findById("1")).willReturn(input);
+        given(fcmTokenMessageService.findByOrganizationIdAndId("teste1", "1")).willReturn(input);
 
         mvc.perform(
                 get("/fcm/teste1/token/1")
@@ -179,7 +166,7 @@ public class FcmControllerTest {
         FcmTopicMessage input = createBasicFcmTopicMessage("1", "t1");
         FcmTopicMessage input2 = createBasicFcmTopicMessage("2", "t1");
 
-        given(fcmTopicMessageService.findAllByTopic("t1")).willReturn(
+        given(fcmTopicMessageService.findAllByOrganizationIdAndTopic("teste1","t1")).willReturn(
                 Arrays.asList(
                         input, input2
                 )
@@ -209,7 +196,7 @@ public class FcmControllerTest {
         FcmTokenMessage input = createBasicFcmTokenMessage("1", "t1");
         FcmTokenMessage input2 = createBasicFcmTokenMessage("2", "t1");
 
-        given(fcmTokenMessageService.findAllByToken("t1")).willReturn(
+        given(fcmTokenMessageService.findAllByOrganizationIdAndToken("teste1","t1")).willReturn(
                 Arrays.asList(
                         input, input2
                 )

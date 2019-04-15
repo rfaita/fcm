@@ -14,16 +14,12 @@ public class FcmTopicMessageService {
     @Autowired
     private FcmTopicMessageRepository fcmTopicMessageRepository;
 
-    public FcmTopicMessage findById(String id) {
-        Optional<FcmTopicMessage> ret = fcmTopicMessageRepository.findById(id);
-        if (ret.isPresent()) {
-            return ret.get();
-        }
-        return null;
+    public FcmTopicMessage findByOrganizationIdAndId(String organizationId,String id) {
+        return fcmTopicMessageRepository.findByOrganizationIdAndId(organizationId, id);
     }
 
-    public List<FcmTopicMessage> findAllByTopic(String Topic) {
-        return fcmTopicMessageRepository.findAllByTopic(Topic);
+    public List<FcmTopicMessage> findAllByOrganizationIdAndTopic(String organizationId, String topic) {
+        return fcmTopicMessageRepository.findAllByOrganizationIdAndTopic(organizationId, topic);
     }
 
     public FcmTopicMessage save(FcmTopicMessage fcmTopicMessage) {

@@ -42,9 +42,9 @@ public class FcmTokenMessageServiceTest {
 
         FcmTokenMessage data = createBasicFcmTokenMessage("1", "123");
 
-        given(repository.findById("1")).willReturn(Optional.of(data));
+        given(repository.findByOrganizationIdAndId("123", "1")).willReturn(data);
 
-        FcmTokenMessage ret = service.findById("1");
+        FcmTokenMessage ret = service.findByOrganizationIdAndId("123", "1");
 
         Assert.assertEquals(data.getId(), ret.getId());
         Assert.assertEquals(data.getToken(), ret.getToken());
@@ -58,9 +58,9 @@ public class FcmTokenMessageServiceTest {
     public void find_by_id_not_found() {
 
 
-        given(repository.findById("2")).willReturn(Optional.empty());
+        given(repository.findByOrganizationIdAndId("123", "2")).willReturn(null);
 
-        FcmTokenMessage ret = service.findById("2");
+        FcmTokenMessage ret = service.findByOrganizationIdAndId("123", "2");
 
         Assert.assertTrue(ret == null);
 
@@ -72,9 +72,10 @@ public class FcmTokenMessageServiceTest {
 
         FcmTokenMessage data = createBasicFcmTokenMessage("1", "123");
 
-        given(repository.findAllByToken("123")).willReturn(Arrays.asList(data));
+        given(repository.findAllByOrganizationIdAndToken("123", "123"))
+                .willReturn(Arrays.asList(data));
 
-        List<FcmTokenMessage> ret = service.findAllByToken("123");
+        List<FcmTokenMessage> ret = service.findAllByOrganizationIdAndToken("123", "123");
 
         Assert.assertEquals(1, ret.size());
 
@@ -90,9 +91,9 @@ public class FcmTokenMessageServiceTest {
     public void find_all_by_token_not_found() {
 
 
-        given(repository.findAllByToken("2")).willReturn(Arrays.asList());
+        given(repository.findAllByOrganizationIdAndToken("123", "2")).willReturn(Arrays.asList());
 
-        List<FcmTokenMessage> ret = service.findAllByToken("2");
+        List<FcmTokenMessage> ret = service.findAllByOrganizationIdAndToken("123", "2");
 
         Assert.assertTrue(ret.isEmpty());
 

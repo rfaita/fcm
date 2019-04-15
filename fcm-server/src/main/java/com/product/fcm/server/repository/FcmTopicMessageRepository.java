@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface FcmTopicMessageRepository extends MongoRepository<FcmTopicMessage, String> {
 
-    List<FcmTopicMessage> findAllByTopic(String topic);
+    FcmTopicMessage findByOrganizationIdAndId(String organizationId, String id);
+
+    List<FcmTopicMessage> findAllByOrganizationIdAndTopic(String organizationId, String topic);
 
 }

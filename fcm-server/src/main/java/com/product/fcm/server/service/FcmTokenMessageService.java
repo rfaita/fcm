@@ -14,16 +14,12 @@ public class FcmTokenMessageService {
     @Autowired
     private FcmTokenMessageRepository fcmTokenMessageRepository;
 
-    public FcmTokenMessage findById(String id) {
-        Optional<FcmTokenMessage> ret = fcmTokenMessageRepository.findById(id);
-        if (ret.isPresent()) {
-            return ret.get();
-        }
-        return null;
+    public FcmTokenMessage findByOrganizationIdAndId(String organizationId, String id) {
+        return fcmTokenMessageRepository.findByOrganizationIdAndId(organizationId, id);
     }
 
-    public List<FcmTokenMessage> findAllByToken(String token) {
-        return fcmTokenMessageRepository.findAllByToken(token);
+    public List<FcmTokenMessage> findAllByOrganizationIdAndToken(String organizationId, String token) {
+        return fcmTokenMessageRepository.findAllByOrganizationIdAndToken(organizationId, token);
     }
 
     public FcmTokenMessage save(FcmTokenMessage fcmTokenMessage) {

@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface FcmTokenMessageRepository extends MongoRepository<FcmTokenMessage, String> {
 
-    List<FcmTokenMessage> findAllByToken(String token);
-    
+    FcmTokenMessage findByOrganizationIdAndId(String organizationId, String id);
+
+    List<FcmTokenMessage> findAllByOrganizationIdAndToken(String organizationId, String token);
+
 }
