@@ -1,0 +1,4 @@
+/home/rfaita/clube/fcm/fcm-client/src/main/java/com/product/fcm/client/FcmClient.java
+/home/rfaita/clube/fcm/fcm-client/src/main/java/com/product/fcm/client/shared/exception/CustomHystrixBadRequestException.java
+/home/rfaita/clube/fcm/fcm-client/src/main/java/com/product/fcm/client/util/CustomErrorDecoder.java
+/home/rfaita/clube/fcm/fcm-client/src/main/java/com/product/fcm/client/config/FcmClientConfig.java
