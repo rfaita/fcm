@@ -1,8 +1,0 @@
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/client/FcmContract.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/Envelope.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/FcmMessageDTO.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/ErrorDTO.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/SendFcmTopicMessageDTO.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/FcmTopicMessageDTO.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/FcmTokenMessageDTO.java
-/home/rfaita/clube/fcm/fcm-shared/src/main/java/com/product/fcm/shared/dto/SendFcmTokenMessageDTO.java

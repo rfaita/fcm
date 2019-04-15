@@ -1,4 +1,0 @@
-com/product/fcm/client/util/CustomErrorDecoder.class
-com/product/fcm/client/shared/exception/CustomHystrixBadRequestException.class
-com/product/fcm/client/config/FcmClientConfig.class
-com/product/fcm/client/FcmClient.class
